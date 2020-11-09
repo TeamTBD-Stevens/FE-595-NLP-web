@@ -1,0 +1,7 @@
+flask
+pandas
+vaderSentiment
+nltk
+translate
+pyenchant
+langdetect
