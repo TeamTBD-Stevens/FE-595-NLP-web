@@ -9,8 +9,6 @@ from translate import Translator
 import enchant
 from langdetect import detect
 
-spacy.load('en')
-detect('I am smart')
 app = Flask(__name__)
 
 
