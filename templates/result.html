@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+    *{padding:0; margin:0; list-style:none;}
+    .list{ width:200px; margin:10px auto;}
+    .list li:before{ content:''; width:4px; height:4px; border-radius:50%; background:#000; display:inline-block;
+                     margin-right:5px; vertical-align:middle; margin-top:-5px;}
+</style>
+<body>
+
+	<header>
+		<div class="container">
+		    <div id="brandname">
+			    Wish you all the best.
+		    </div>
+		<h1 style="color:darkolivegreen;text-align: center;">NLP Results page </h1>
+        </div>
+    </header>
+    <br>
+
+
+    <div align="center">
+    {% if prediction != 'Empty block 19491001 zhrmghgcl' %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>Sentiment Analysis Result</b></h2>
+        <br>
+		{% if prediction > 0 %}
+			<p style="color:indianred;"><b>Positive</b></p>
+		{% elif prediction < 0 %}
+			<p style="color:black;"><b>Negative</b></p>
+        {% elif prediction == 0 %}
+			<p style="color:grey;"><b>Neutral</b></p>
+		{% endif %}
+	{% endif %}
+    </div>
+    <br>
+
+
+    <div align="center">
+    {% if language != 'Empty block 19491001 zhrmghgcl' %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>language detect</b></h2>
+        <br>
+        <p >The most possible language of this text is: {{ language }}</p>
+    {% endif %}
+    </div>
+    <br>
+
+
+    <div>
+    {% if words != "Empty block 19491001 zhrmghgcl" %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>Tokenlize Result</b></h2>
+        <ul class="list">
+            {% for item in words %}
+            <li class="list">{{ item }}</li>
+            {% endfor %}
+        </ul>
+	{% endif %}
+    </div>
+    <br>
+
+
+    <div>
+    {% if top_10 != 'Empty block 19491001 zhrmghgcl' %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>Top 10 most frequently used words</b></h2>
+        <ul class="list">
+            {% for item in top_10 %}
+            <li>{{ item[0] }} : {{ item[1] }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    <br>
+
+
+    <div>
+    {% if tags != 'Empty block 19491001 zhrmghgcl' %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>POS tagging</b></h2>
+        <ul class="list">
+            {% for item in tags %}
+            <li>{{ item[0] }} : {{ item[1] }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    <br>
+
+
+    <div align="center">
+    {% if AI_response != 'Empty block 19491001 zhrmghgcl' %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>ChatBot response</b></h2>
+        <br>
+	    <div align="center" class="results">
+	        <p>{{ AI_response }}</p>
+        </div>
+    {% endif %}
+    </div>
+    <br>
+
+
+    <div align="center">
+    {% if translation != 'Empty block 19491001 zhrmghgcl' %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>Chinese translation result for your text </b></h2>
+        <br>
+        <div align="center" class="results">
+            <p>{{ translation }}</p>
+        </div>
+    {% endif %}
+    </div>
+    <br>
+
+
+    <div align="center">
+    {% if check_message != 'Empty block 19491001 zhrmghgcl' %}
+		<h2 style="color:darkolivegreen;text-align: center;"><b>Spell check result </b></h2>
+        <br>
+        <p>{{ check_message }}</p>
+    {% endif %}
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+</body>
+</html>

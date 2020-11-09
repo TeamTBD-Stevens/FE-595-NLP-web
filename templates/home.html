@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+
+	<header>
+	<div class="container">
+		<div id="brandname">
+			Machine Learning App with Flask
+		</div>
+		<h2 style="color:orange;text-align: center;">NLP toy using Flask API</h2>
+	</div>
+	</header>
+
+	<div align="center";class="ml-container">
+		<div>
+			Minghao Kang, Fangchi Wu, Shiraz Bheda, Yuwen Jin
+		</div>
+{#	</form>#}
+	</div>
+	
+
+
+	<div align="center";class="row">
+		<form action="{{ url_for('user_rec')}}" method="POST">
+
+            <p style="color:orange;text-align: center;"><b>Enter Your Message Here</b></p>
+            <!-- <input type="text" name="comment"/> -->
+            <textarea name="message" rows="4" cols="50" ></textarea>
+            <br/>
+
+            <p style="color:orange;text-align: center;"><b>Choose functionalities you want to realize</b></p>
+            <div class="col-sm-2 ">
+                <label>
+                    <input name="s_option" value="sentiment_analysis" type="checkbox"> sentiment analysis
+                </label>
+            </div>
+
+            <div class="col-sm-2 ">
+                <label>
+                <input name="s_option" value="language_detect" type="checkbox"> language detect
+                </label>
+            </div>
+
+            <div class="col-sm-2 ">
+                <label>
+                    <input name="s_option" value="useful_words"  type="checkbox"> tokenlize
+                </label>
+            </div>
+
+            <div class="col-sm-2 ">
+                <label>
+                    <input name="s_option" value="top_10"  type="checkbox"> top 10 most frequently used words
+                </label>
+            </div>
+
+            <div class="col-sm-2 ">
+                <label>
+                    <input name="s_option" value="pos_tag"  type="checkbox"> POS(part of speech) tagging
+                </label>
+            </div>
+
+            <div class="col-sm-2 ">
+                <label>
+                    <input name="s_option" value="AI_response"  type="checkbox"> AI response
+                </label>
+            </div>
+
+            <div class="col-sm-2 ">
+                <label>
+                    <input name="s_option" value="translate_Chinese"  type="checkbox"> English to Chinese
+                </label>
+            </div>
+
+            <div class="col-sm-2 ">
+                <label>
+                    <input name="s_option" value="spell_check"  type="checkbox"> spell check
+                </label>
+            </div>
+
+            <br/>
+
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="submit">
+	    </form>
+	</div>
+
+
+
+</body>
+</html>
