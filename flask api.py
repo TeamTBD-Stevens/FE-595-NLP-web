@@ -6,7 +6,6 @@ from nltk.tokenize import word_tokenize
 import nltk
 import string
 from translate import Translator
-import spacy
 import enchant
 from langdetect import detect
 
