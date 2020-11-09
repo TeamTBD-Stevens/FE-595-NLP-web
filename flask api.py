@@ -31,6 +31,9 @@ def user_rec():
         = ['Empty block 19491001 zhrmghgcl'] * 8
 
     if request.method == 'POST':
+        text = request.form['message']
+        if text is None or len(text.split()) == 0:
+            return render_template('error.html')
 
         if 'sentiment_analysis' in checklist:
             sentiment = sentiment_analysis()
@@ -138,3 +141,4 @@ def spell_check():
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
+
