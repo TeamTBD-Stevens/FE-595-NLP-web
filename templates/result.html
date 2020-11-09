@@ -89,24 +89,36 @@
 
 
     <div align="center">
-    {% if AI_response != 'Empty block 19491001 zhrmghgcl' %}
-		<h2 style="color:darkolivegreen;text-align: center;"><b>ChatBot response</b></h2>
+    {% if french != 'Empty block 19491001 zhrmghgcl' %}
+        <h2 style="color:darkolivegreen;text-align: center;"><b>French translation result for your text</b></h2>
         <br>
-	    <div align="center" class="results">
-	        <p>{{ AI_response }}</p>
-        </div>
+        {% if french == 'fail to translate' %}
+            <div align="center">
+	            <p style="color: indianred">{{ french }}</p>
+            </div>
+        {% else %}
+            <div align="center">
+                <p>{{ french }}</p>
+            </div>
+        {% endif %}
     {% endif %}
     </div>
     <br>
 
 
     <div align="center">
-    {% if translation != 'Empty block 19491001 zhrmghgcl' %}
-		<h2 style="color:darkolivegreen;text-align: center;"><b>Chinese translation result for your text </b></h2>
+    {% if chinese != 'Empty block 19491001 zhrmghgcl' %}
+        <h2 style="color:darkolivegreen;text-align: center;"><b>Chinese translation result for your text</b></h2>
         <br>
-        <div align="center" class="results">
-            <p>{{ translation }}</p>
-        </div>
+        {% if chinese == 'fail to translate' %}
+            <div align="center">
+	            <p style="color: indianred">{{ chinese }}</p>
+            </div>
+        {% else %}
+            <div align="center">
+                <p>{{ chinese }}</p>
+            </div>
+        {% endif %}
     {% endif %}
     </div>
     <br>

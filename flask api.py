@@ -5,9 +5,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import nltk
 import string
-from collections import Counter
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
 from translate import Translator
 import spacy
 import enchant
@@ -27,7 +24,7 @@ def home():
 def user_rec():
     checklist = request.form.getlist('s_option')
     print(checklist)
-    sentiment, word_bag, language, highest_counts, tags, response, chinese, out_message \
+    sentiment, word_bag, language, highest_counts, tags, french, chinese, out_message \
         = ['Empty block 19491001 zhrmghgcl'] * 8
 
     if request.method == 'POST':
@@ -50,8 +47,8 @@ def user_rec():
         if 'pos_tag' in checklist:
             tags = pos_tag()
 
-        if 'AI_response' in checklist:
-            response = AI_response()
+        if 'translate_French' in checklist:
+            french = translate_French()
 
         if 'translate_Chinese' in checklist:
             chinese = translate_Chinese()
@@ -60,7 +57,7 @@ def user_rec():
             out_message = spell_check()
 
     return render_template('result.html', prediction=sentiment, words=word_bag,
-                           top_10=highest_counts, tags=tags, AI_response=response, translation=chinese,
+                           top_10=highest_counts, tags=tags, french=french, chinese=chinese,
                            check_message=out_message, language=language)
 
 
@@ -94,8 +91,9 @@ def useful_words():
 
 def top_10():
     sample = request.form['message']
-    tokens = [i.strip(string.punctuation) for i in sample.split(" ")]
-    highest_counts = Counter(" ".join(tokens).split()).most_common(10)
+    voc = sample.split()
+    counts = pd.value_counts(voc).sort_values(ascending=False)
+    highest_counts = [(counts.keys()[i], counts.values[i]) for i in range(len(counts))]
     return highest_counts
 
 
@@ -106,22 +104,23 @@ def pos_tag():
     return tags
 
 
-def AI_response():
+def translate_French():
     text = request.form['message']
-    BankBot = ChatBot(name='BankBot',
-                      read_only=False,
-                      logic_adapters=["chatterbot.logic.BestMatch"],
-                      storage_adapter="chatterbot.storage.SQLStorageAdapter")
-    corpus_trainer = ChatterBotCorpusTrainer(BankBot)
-    corpus_trainer.train("emotion")
-    response = str(BankBot.get_response(text))
-    return response
+    translator = Translator(to_lang="french")
+    try:
+        french = translator.translate(text)
+    except:
+        french = 'fail to translate'
+    return french
 
 
 def translate_Chinese():
     text = request.form['message']
     translator = Translator(to_lang="chinese")
-    chinese = translator.translate(text)
+    try:
+        chinese = translator.translate(text)
+    except:
+        chinese = 'fail to translate'
     return chinese
 
 
