@@ -9,7 +9,9 @@ from translate import Translator
 import enchant
 from langdetect import detect
 
+
 app = Flask(__name__)
+nltk.download('averaged_perceptron_tagger')
 
 
 @app.route('/')
@@ -21,8 +23,8 @@ def home():
 def user_rec():
     checklist = request.form.getlist('s_option')
     print(checklist)
-    sentiment, word_bag, language, highest_counts, tags, french, chinese, out_message \
-        = ['Empty block 19491001 zhrmghgcl'] * 8
+    sentiment, word_bag, language, highest_counts, tags, french, chinese, out_message, check_empty \
+        = ['Empty block 19491001 zhrmghgcl'] * 9
 
     if request.method == 'POST':
         text = request.form['message']
@@ -53,9 +55,12 @@ def user_rec():
         if 'spell_check' in checklist:
             out_message = spell_check()
 
+        if len(checklist) == 0:
+            check_empty = 'Please choose at least one analyzing method.'
+
     return render_template('result.html', prediction=sentiment, words=word_bag,
                            top_10=highest_counts, tags=tags, french=french, chinese=chinese,
-                           check_message=out_message, language=language)
+                           check_message=out_message, language=language, check_empty=check_empty)
 
 
 def sentiment_analysis():
@@ -108,6 +113,8 @@ def translate_French():
         french = translator.translate(text)
     except:
         french = 'fail to translate'
+    if text == french:
+        french = 'fail to translate'
     return french
 
 
@@ -117,6 +124,8 @@ def translate_Chinese():
     try:
         chinese = translator.translate(text)
     except:
+        chinese = 'fail to translate'
+    if text == chinese:
         chinese = 'fail to translate'
     return chinese
 
