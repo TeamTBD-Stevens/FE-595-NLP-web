@@ -105,12 +105,14 @@ def top_10():
     voc = sample.split()
     counts = pd.value_counts(voc).sort_values(ascending=False)
     highest_counts = [(counts.keys()[i], counts.values[i]) for i in range(len(counts))]
+    """This variable can be any number if user needs to expand or contract the word count list"""
     return highest_counts
 
 
 def pos_tag():
     sample = request.form['message']
     tokens = [i.strip(string.punctuation) for i in sample.split(" ")]
+    """Tokenizes and removes punctuation before assigning a part of speech to every word"""
     tags = nltk.pos_tag(tokens)
     return tags
 
