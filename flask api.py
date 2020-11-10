@@ -8,8 +8,12 @@ import string
 from translate import Translator
 import enchant
 from langdetect import detect
+# from chatterbot import ChatBot
+# from chatterbot.trainers import ChatterBotCorpusTrainer
+# import spacy
 
 
+# spacy.load('en')
 app = Flask(__name__)
 nltk.download('averaged_perceptron_tagger')
 
@@ -22,14 +26,17 @@ def home():
 @app.route('/result', methods=['POST'])
 def user_rec():
     checklist = request.form.getlist('s_option')
-    print(checklist)
-    sentiment, word_bag, language, highest_counts, tags, french, chinese, out_message, check_empty \
-        = ['Empty block 19491001 zhrmghgcl'] * 9
+    sentiment, word_bag, language, highest_counts, tags, french, chinese, out_message\
+        = ['Empty block 19491001 zhrmghgcl'] * 8
+    # ai_response = 'Empty block 19491001 zhrmghgcl'
 
     if request.method == 'POST':
         text = request.form['message']
         if text is None or len(text.split()) == 0:
-            return render_template('error.html')
+            return render_template('blank error.html')
+
+        if len(checklist) == 0:
+            return render_template('no choice error.html')
 
         if 'sentiment_analysis' in checklist:
             sentiment = sentiment_analysis()
@@ -55,12 +62,14 @@ def user_rec():
         if 'spell_check' in checklist:
             out_message = spell_check()
 
-        if len(checklist) == 0:
-            check_empty = 'Please choose at least one analyzing method.'
+        # if 'AI_response' in checklist:
+        #     response = ai_response()
 
     return render_template('result.html', prediction=sentiment, words=word_bag,
                            top_10=highest_counts, tags=tags, french=french, chinese=chinese,
-                           check_message=out_message, language=language, check_empty=check_empty)
+                           check_message=out_message, language=language
+                           # , ai_response=response
+                           )
 
 
 def sentiment_analysis():
@@ -142,6 +151,18 @@ def spell_check():
         wrong_words = [tokens[i] for i in wrong_index]
         out_message = "Check word(s) '{0}' if this is English text.".format("', '".join(wrong_words))
     return out_message
+
+
+# def ai_response():
+#     text = request.form['message']
+#     BankBot = ChatBot(name='BankBot',
+#                       read_only=False,
+#                       logic_adapters=["chatterbot.logic.BestMatch"],
+#                       storage_adapter="chatterbot.storage.SQLStorageAdapter")
+#     corpus_trainer = ChatterBotCorpusTrainer(BankBot)
+#     corpus_trainer.train("emotion")
+#     response = str(BankBot.get_response(text))
+#     return response
 
 
 if __name__ == '__main__':
