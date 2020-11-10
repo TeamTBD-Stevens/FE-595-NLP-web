@@ -116,6 +116,17 @@ def pos_tag():
 
 
 def translate_French():
+    
+    """
+    This is Fangchi Wu, I wrote function translate_French()
+    
+    Input: 
+        one sentence in English
+
+    Output: 
+        corresponding translated sentence in French
+    """
+
     text = request.form['message']
     translator = Translator(to_lang="french")
     try:
@@ -128,6 +139,16 @@ def translate_French():
 
 
 def translate_Chinese():
+    
+    """
+    This is Fangchi Wu, I wrote function translate_Chinese()
+    
+    Input: 
+        one sentence in English
+
+    Output: 
+        corresponding translated sentence in Chinese
+    """
     text = request.form['message']
     translator = Translator(to_lang="chinese")
     try:
