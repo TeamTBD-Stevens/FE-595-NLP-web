@@ -18,6 +18,8 @@ app = Flask(__name__)
 nltk.download('averaged_perceptron_tagger')
 
 
+#called function decorators; applies pre-written set of code to a function.
+# the methods determine the type of command that your website will respond to from a server.
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -104,7 +106,7 @@ def top_10():
     sample = request.form['message']
     voc = sample.split()
     counts = pd.value_counts(voc).sort_values(ascending=False)
-    highest_counts = [(counts.keys()[i], counts.values[i]) for i in range(len(counts))]
+    highest_counts = [(counts.keys()[i], counts.values[i]) for i in range(len(counts))]#counts is a variable that can be set to any number
     return highest_counts
 
 
